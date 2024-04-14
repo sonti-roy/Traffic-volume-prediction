@@ -43,7 +43,8 @@ This repository contains code for data processing, feature selection and multipl
 
 
 ## Data processing 
-
+### Target column - traffic_volume
+The rows containing NaN values for this column were droped as it might impact the prediction
 
 ## Supervised feature selection
 

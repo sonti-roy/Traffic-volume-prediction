@@ -9,8 +9,26 @@ This repository contains code for data processing, feature selection and multipl
 
 ## Implementation Details
 
-- Dataset details -
-  
+- Dataset - Traffic volume dataset
+- Model evaluated: 
+  - [Linear Regressor](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html)
+  - [KNeighborsRegression](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsRegressor.html)
+  - [SGDRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html)
+  - [BayesianRidge](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html)
+  - [DecisionTreeRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html)
+  - [GradientBoostingRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingRegressor.html)
+  - [RandomForestRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)
+- Feature selection methods:
+    - Supervised feature selection
+        - [mutual info regression](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_regression.html)
+        - [f_regression](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.f_regression.html)
+        - [Pearson Correlation](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.r_regression.html)
+     - Unsupervised feature selection
+         - [Principal component analysis](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html)
+
+
+## Dataset Details
+
 | Variable Name         | Role    | Type       | Description                                                  | Units  |
 |-----------------------|---------|------------|--------------------------------------------------------------|--------|
 | holiday               | Feature | Categorical| US National holidays plus regional holiday, Minnesota State Fair | -     |
@@ -23,45 +41,10 @@ This repository contains code for data processing, feature selection and multipl
 | date_time             | Feature | Date       | Hour of the data collected in local CST time                   | -      |
 | traffic_volume        | Target  | Integer    | Hourly I-94 ATR 301 reported westbound traffic volume         | -      |
 
-- Model evaluated: 
-  - [Linear Regressor](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html)
-  - [KNeighborsRegression](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsRegressor.html)
-  - [SGDRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html)
-  - [BayesianRidge](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html)
-  - [DecisionTreeRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html)
-  - [GradientBoostingRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingRegressor.html)
-- Feature selection methods:
-    - Supervised feature selection
-        - [mutual info regression](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_regression.html)
-        - [f_regression](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.f_regression.html)
-        - [Pearson Correlation](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.r_regression.html)
-     - Unsupervised feature selection
-         - [Principal component analysis](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html)
+
+## Data processing 
 
 
-## Dataset Details
-
-This dataset was obtained from the StatLib repository ([Link](https://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.html))
-
-This dataset was derived from the 1990 U.S. census, using one row per census block group. A block group is the smallest geographical unit for which the U.S. Census Bureau publishes sample data (a block group typically has a population of 600 to 3,000 people).
-
-A household is a group of people residing within a home. Since the average number of rooms and bedrooms in this dataset are provided per household, these columns may take surprisingly large values for block groups with few households and many empty houses, such as vacation resorts.
-
-It can be downloaded/loaded using the sklearn.datasets.fetch_california_housing function.
-
-- [California Housing Dataset in Sklearn Documentation](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html)
-- 20640 samples
-- 8 Input Features: 
-    - MedInc median income in block group
-    - HouseAge median house age in block group
-    - AveRooms average number of rooms per household
-    - AveBedrms average number of bedrooms per household
-    - Population block group population
-    - AveOccup average number of household members
-    - Latitude block group latitude
-    - Longitude block group longitude
-- Target: Median house value for California districts, expressed in hundreds of thousands of dollars ($100,000)
-  
 ## Supervised feature selection
 
 ### 1. Evaluating mutual info regression method for feature selection

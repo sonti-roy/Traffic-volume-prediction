@@ -25,6 +25,9 @@ This repository contains code for data processing, feature selection and multipl
         - [Pearson Correlation](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.r_regression.html)
      - Unsupervised feature selection
          - [Principal component analysis](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html)
+- Hyperparameter tuning
+  - Using GridSearchCV
+  
 
 
 ## Dataset Details
@@ -44,7 +47,34 @@ This repository contains code for data processing, feature selection and multipl
 
 ## Data processing 
 ### Target column - traffic_volume
-The rows containing NaN values for this column were droped as it might impact the prediction
+The rows containing NaN values for this column were droped as it is the ground truth column, imputing or replacing NaN values will affect the dataset originiality.
+
+### Date_time column processing
+The NaN containing row in date_time column were droped as it doesnot make sense to impute.
+
+### holiday column
+- The NaN value in the were converted to 0 and the holiday to 1.
+### Temperature, rain, snow and clouds column
+The NaN value in these columns were filled using ffill after the datset was sorted by date_time column.
+
+### Weather description and weather main column
+The Na values in weather main was filled using an approach where the last word of weather description was used to fill weather main NA values. And then remaining NA cointaining rows were droped.
+
+### Drop duplicates and unnecessary columns
+Next the duplicates rows were droped and also date_time, weather description column were droped.
+
+### encoding categorical text into numerical value.
+Here weather main, day, month, year, day_time, weekend were converted to numerical encoding suing serial values starting from 1 till len(var).
+
+## Data exploration 
+
+### Histogram
+All columns were visualized using histogram.
+
+![alt text](https://github.com/sonti-roy/featureSelection_california_housing/blob/main/plots/histogram.png)
+
+### Box plot
+
 
 ## Supervised feature selection
 

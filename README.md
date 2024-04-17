@@ -78,91 +78,84 @@ To check the outlier in certain column box plot is used to visualize and detect.
 
 ![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/tv_box_plot.png)
 
-![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/tv_box_plot.png)
+![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/day_box_plot.png)
 
-![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/tv_box_plot.png)
+![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/hour_box_plot.png)
 
+## Base Model development
+
+For model development multiple estimator has been screened and the appropriate model was further fine tuned later.
+The dataset was spilited to training dataset and evaluation dataset. Here are score for model screening.
+
+|    Model                | R2     | MSE          |
+|-------------------------|--------|--------------|
+| SVR                     | 0.1953 | 3187710.8458 |
+| LinearRegression        | 0.3232 | 2681101.2234 |
+| KNeighborsRegression    | 0.7063 | 1163396.5928 |
+| SGDRegressor            | 0.3213 | 2688483.8860 |
+| BayesianRidge           | 0.3231 | 2681126.1147 |
+| DecisionTreeRegressor   | 0.9340 | 261360.1047  |
+| GradientBoostingRegressor| 0.9017 | 389401.9654  |
+| RandomForestRegressor   | 0.9652 | 137792.2456  |
+| XGBRegressor            | 0.9725 | 108748.1525  |
+
+RandomForest and XGBRegressor was found to be performing best among all the models.
+
+## Cross valadatiuon was performed to see if there is overfitting.
+
+| CV Number | Score     |
+|-----------|-----------|
+| 1         | 0.92805313|
+| 2         | 0.9287948 |
+| 3         | 0.94174875|
+
+The scores are less than the score genearted from evaluation dataset. It indicates overfitting of the model.
 
 ## Supervised feature selection
 
-### 1. Evaluating mutual info regression method for feature selection
+### Pearson Correlation - feature selection
+
+[Pearson correlation](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) is a correlation coefficient that measures linear correlation between two sets of data. It is the ratio between the covariance of two variables and the product of their standard deviations.
+
+![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/cor_plot.png)
+
+**Fig : Pearson correlation coefficient for all the pairwise combinations of features.**
+
+### Evaluating mutual info regression method for feature selection
 
 [Mutual information (MI)](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_regression.html) between two random variables is a non-negative value, which measures the dependency between the variables. It is equal to zero if and only if two random variables are independent, and higher values mean higher dependency.
 
-![alt text](https://github.com/sonti-roy/featureSelection_california_housing/blob/main/plots/mutual_info_regression_comparasion.png)
+![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/mi.png)
 
 **Fig-1: The plot shows the dependency of the target on each feature.**
 
-Top 60% of the features were selected and evaluated for it accuracy with all features dataset using Linear regression.
+Top 70% of the features were selected and evaluated for it accuracy with all features dataset using RandomForestRegressor.
 
-| Dataset                    | R2       | MSE      |
-|----------------------------|----------|----------|
-| Original                   | 0.575787706032451| 0.5558915986952441 |
-| Subset                     | 0.5732648513884984 | 0.5591975700714763 |
-
+| Metric                         | Value                           |
+|--------------------------------|---------------------------------|
+| R2 Score                       | 0.9656273468841373              |
+| Mean Squared Error             | 133272.57017553216              |
+| Cross-Validation Scores        | [0.96480622, 0.96424541, 0.95989378] |
+| Percentage Deviation from Mean | 11.21                           |
 
 
 ### 2. Selecting features using f_regression
 
 [f_regression](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.f_regression.html) uses univariate linear regression tests returning F-statistic and p-values.
 
-![alt text](https://github.com/sonti-roy/featureSelection_california_housing/blob/main/plots/f_regression_comparasion.png)
+![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/f_reg.png)
 
 **Fig-2: Plot for F ststistics for all feature against the target.**
 
-As the range was highly variable for different features. Top 4 features were selected out of total 8 features and subset data was generated. The score was compared for original and subset dataset.
+Top 60% of the features were selected and evaluated for it accuracy with all features dataset using RandomForestRegressor.
 
-| Dataset                    | R2       | MSE      |
-|----------------------------|----------|----------|
-| Original                   | 0.575787706032451| 0.5558915986952441 |
-| subset                     | 0.5043169272470043 | 0.6495475488975627 |
+| Metric                         | Value                           |
+|--------------------------------|---------------------------------|
+| R2 Score                       | 0.944669474729565               |
+| Mean Squared Error             | 214532.21219487552              |
+| Cross-Validation Scores        | [0.94521279, 0.94479329, 0.93781204] |
+| Percentage Deviation from Mean | 14.22                           |
 
-
-### 3. Pearson Correlation - feature selection
-
-[Pearson correlation](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) is a correlation coefficient that measures linear correlation between two sets of data. It is the ratio between the covariance of two variables and the product of their standard deviations.
-
-![alt text](https://github.com/sonti-roy/featureSelection_california_housing/blob/main/plots/correlation_plot.png)
-
-**Fig-3: Pearson correlation coefficient for all the pairwise combinations of features.**
-
-Longitude and latitude, AveRooms and AveBedrms are highly correlated with -0.92 and 0.85 coeffiecient respectively. For removal of any one feature from the combination variance was analysed for the 4 features.
-
-| Features                   | Variance |
-|----------------------------|----------|
-| Longitude                  | 4.014139367081251| 
-| Latitude                   | 4.562292644202798 | 
-| AveRooms                   | 6.12153272384879 | 
-| AveBedrms                  | 0.2245915001886127 | 
-
-Based on the variance data, longitude and AveBedrms are removed manually and evaluated the model on original and subset dataset using linear regression.
-
-| Dataset                    | R2       | MSE      |
-|----------------------------|----------|----------|
-| Original                   | 0.575787706032451| 0.5558915986952441 |
-| subset                     | 0.5059804263462322 | 0.6473676847426387 |
-
-### 4. Recurive Feature Elimination (RFE)
-
-[Recursive feature elimination (RFE)](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFE.html) is to select features by recursively considering smaller and smaller sets of features. First, the estimator is trained on the initial set of features and the importance of each feature is obtained either through any specific attribute or callable. Then, the least important features are pruned from current set of features. That procedure is recursively repeated on the pruned set until the desired number of features to select is eventually reached.
-
-Estimator/model used is Lasso as it inheriently do feature selection and subset the dataset and evaluated uisng linear regression model.
-
-| Dataset                    | R2       | MSE      |
-|----------------------------|----------|----------|
-| Original                   | 0.575787706032451| 0.5558915986952441 |
-| subset                     | 0.58111575601825 | 0.5489096741573366 |
-
-### 5. Sequential Feature Selection
-
-[Sequential Feature Selector](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SequentialFeatureSelector.html) adds (forward selection) or removes (backward selection) features to form a feature subset in a greedy fashion. At each stage, this estimator chooses the best feature to add or remove based on the cross-validation score of an estimator. In the case of unsupervised learning, this Sequential Feature Selector looks only at the features (X), not the desired outputs (y).
-
-RidgeCV estimator is being used for this and selected 6 best features.
-
-| Dataset                    | R2       | MSE      |
-|----------------------------|----------|----------|
-| Original                   | 0.575787706032451| 0.5558915986952441 |
-| subset                     | 0.5099337366296423 | 0.6421872314534861 |
 
 ## Unsupervised feature selection
 
@@ -170,41 +163,33 @@ RidgeCV estimator is being used for this and selected 6 best features.
 
 [PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) is defined as an orthogonal linear transformation on a real inner product space           that transforms the data to a new coordinate system such that the greatest variance by some scalar projection of the data comes to lie on the               first coordinate (called the first principal component), the second greatest variance on the second coordinate, and so on.
         
-7 component were selected for the transformed space and evalauated it using Linear Regression. 7 was acheived by running at different value and             accessing the score.
+9 component were selected for the transformed space and evalauated it using RandomForestRegressor.
         
-| Dataset                    | R2       | MSE      |
-|----------------------------|----------|----------|
-| Original                   | 0.575787706032451| 0.5558915986952441 |
-| subset                     | 0.5827018886341137 | 0.5468311917368283 |
+| Metric                         | Value                           |
+|--------------------------------|---------------------------------|
+| R2 Score                       | 0.5565759676724207              |
+| Mean Squared Error             | 1719281.3213077914              |
+| Cross-Validation Scores        | [0.53416057, 0.53846765, 0.53979648] |
+| Percentage Deviation from Mean | 40.27                           |
 
 
-## Evaluate different model on the subset of x 
 
-Around 7 regression model was evaluated on the original dataset set and all the subset dataset and compared their metrics to find the best model with high accuracy.
+# Hyperparameter tuning
 
-![alt text](https://github.com/sonti-roy/featureSelection_california_housing/blob/main/plots/r2_comparasion_plot.png)
+Hyparameter tuning was performed using GridSearchCV with parameter
 
-**Fig-4: R2 comparasion for all the model on different subset of data generated through feature selection.**
+```python
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'max_depth': [None, 5, 10, 15],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4]
+}
+```
 
-![alt text](https://github.com/sonti-roy/featureSelection_california_housing/blob/main/plots/mse_comparasion_plot.png)
-
-**Fig-5: MSE comparison for all the models on different subset of data generated through feature selection.**
+The best paarmeter was used to train the RandomForestRegressor Model on train dataset and evaluated on test dataset. The scores are
 
 
-**Table - Top 10 model with different dataset.**
-
-| data_subset            | r2                       | mse                      | model                   |
-|------------------------|--------------------------|--------------------------|-------------------------|
-| original               | 0.776                    | 0.294                    | GradientBoostingRegressor |
-| mutual_info_regression | 0.773                    | 0.297                    | GradientBoostingRegressor |
-| RFE                    | 0.750                    | 0.328                    | GradientBoostingRegressor |
-| mutual_info_regression | 0.750                    | 0.328                    | KNeighborsRegression      |
-| PCA                    | 0.713                    | 0.376                    | GradientBoostingRegressor |
-| subset                 | 0.706                    | 0.386                    | GradientBoostingRegressor |
-| SFS                    | 0.671                    | 0.431                    | GradientBoostingRegressor |
-| RFE                    | 0.667                    | 0.436                    | DecisionTreeRegressor     |
-| mutual_info_regression | 0.660                    | 0.445                    | DecisionTreeRegressor     |
-| original               | 0.631                    | 0.484                    | DecisionTreeRegressor     |
 
 
 *Inference - GradientBoostingRegressor performed the best with the original dataset i.e without any feature selection and the top 2nd model is also GradientBoostingRegressor with mutual_info_regression feature selection.*
@@ -219,12 +204,6 @@ Around 7 regression model was evaluated on the original dataset set and all the 
 *The code is is avaiable in a python notebook **<u>model.ipynb</u>**. To view the code please click below*
 
 [*Click here*](https://github.com/sonti-roy/featureSelection_california_housing/blob/main/model.ipynb)
-
-## Roadmap
-
-1. *Feature engineering could be explored to further improve the model accuracy*
-2. *Hyperparameter Tuning*
-3. *Exploring Other Ways to Improve Model*
 
 ## Libraries 
 

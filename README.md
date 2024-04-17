@@ -205,7 +205,7 @@ Test Score (R-squared): 0.9935267631943931
 
 *The code is is avaiable in a python notebook **<u>model.ipynb</u>**. To view the code please click below*
 
-[*Click here*](https://github.com/sonti-roy/featureSelection_california_housing/blob/main/model.ipynb)
+[*Click here*](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/model.ipynb)
 
 ## Libraries 
 

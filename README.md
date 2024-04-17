@@ -188,12 +188,13 @@ param_grid = {
 }
 ```
 
-The best paarmeter was used to train the RandomForestRegressor Model on train dataset and evaluated on test dataset. The scores are
+The best paarmeter was used to train the RandomForestRegressor Model on train dataset and evaluated on test dataset. The scores is
+
+Test Score (R-squared): 0.9935267631943931
 
 
 
-
-*Inference - GradientBoostingRegressor performed the best with the original dataset i.e without any feature selection and the top 2nd model is also GradientBoostingRegressor with mutual_info_regression feature selection.*
+*Inference - RandomForestRegressor and XGBRegressor performed the best and after hyperparameter tuning it have improved further.
 
 ## Key Takeaways
 

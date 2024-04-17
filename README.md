@@ -53,8 +53,8 @@ The rows containing NaN values for this column were droped as it is the ground t
 The NaN containing row in date_time column were droped as it doesnot make sense to impute.
 
 ### 3. Holiday column
-- The NaN value in the were converted to 0 and the holiday to 1.
-- 
+The NaN value in the were converted to 0 and the holiday to 1.
+
 ### 4. Temperature, rain, snow and clouds column
 The NaN value in these columns were filled using ffill after the datset was sorted by date_time column.
 

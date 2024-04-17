@@ -46,34 +46,35 @@ This repository contains code for data processing, feature selection and multipl
 
 
 ## Data processing 
-### Target column - traffic_volume
+### 1. Target column - traffic_volume
 The rows containing NaN values for this column were droped as it is the ground truth column, imputing or replacing NaN values will affect the dataset originiality.
 
-### Date_time column processing
+### 2. Date_time column processing
 The NaN containing row in date_time column were droped as it doesnot make sense to impute.
 
-### holiday column
+### 3. Holiday column
 - The NaN value in the were converted to 0 and the holiday to 1.
-### Temperature, rain, snow and clouds column
+- 
+### 4. Temperature, rain, snow and clouds column
 The NaN value in these columns were filled using ffill after the datset was sorted by date_time column.
 
-### Weather description and weather main column
+### 5. Weather description and weather main column
 The Na values in weather main was filled using an approach where the last word of weather description was used to fill weather main NA values. And then remaining NA cointaining rows were droped.
 
-### Drop duplicates and unnecessary columns
+### 6. Drop duplicates and unnecessary columns
 Next the duplicates rows were droped and also date_time, weather description column were droped.
 
-### encoding categorical text into numerical value.
+### 7. Encoding categorical text into numerical value.
 Here weather main, day, month, year, day_time, weekend were converted to numerical encoding suing serial values starting from 1 till len(var).
 
 ## Data exploration 
 
-### Histogram
+### 1. Histogram
 All columns were visualized using histogram.
 
 ![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/histogram.png)
 
-### Box plot
+### 2. Box plot
 To check the outlier in certain column box plot is used to visualize and detect.
 
 ![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/tv_box_plot.png)

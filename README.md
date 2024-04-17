@@ -74,6 +74,13 @@ All columns were visualized using histogram.
 ![alt text](https://github.com/sonti-roy/featureSelection_california_housing/blob/main/plots/histogram.png)
 
 ### Box plot
+To check the outlier in certain column box plot is used to visualize and detect.
+
+![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/tv_box_plot.png)
+
+![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/tv_box_plot.png)
+
+![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/tv_box_plot.png)
 
 
 ## Supervised feature selection

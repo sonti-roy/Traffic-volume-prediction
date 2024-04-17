@@ -71,7 +71,7 @@ Here weather main, day, month, year, day_time, weekend were converted to numeric
 ### Histogram
 All columns were visualized using histogram.
 
-![alt text](https://github.com/sonti-roy/featureSelection_california_housing/blob/main/plots/histogram.png)
+![alt text](https://github.com/sonti-roy/Traffic-volume-prediction/blob/main/plots/histogram.png)
 
 ### Box plot
 To check the outlier in certain column box plot is used to visualize and detect.
